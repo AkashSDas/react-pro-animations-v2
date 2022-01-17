@@ -1,12 +1,31 @@
 module.exports = {
-  enabled: true,
-  mode: "jit",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    colors: {
+      primary: "#1C1A1C",
+      secondary: "#FFFEFF",
+      text: "#CFCED0",
+      lightPink: "#DAB8C5",
+      lightPurple: "#B694F1",
+    },
+    fontFamily: {
+      poppins: [
+        "Poppins",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Segoe UI",
+        "Roboto",
+        "Oxygen",
+        "Ubuntu",
+        "Cantarell",
+        "Open Sans",
+        "Helvetica Neue",
+        "sans-serif",
+      ],
+    },
   },
   plugins: [],
 };
