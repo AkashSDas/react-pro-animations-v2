@@ -1,0 +1,64 @@
+.banner {
+  @apply z-10 relative;
+}
+
+.banner .banner-row {
+  @apply overflow-hidden flex items-center;
+
+  &.center {
+    @apply justify-center text-center;
+    .row-letter {
+      left: 0;
+    }
+  }
+
+  .row-title,
+  .row-letter {
+    @apply text-[190px] font-semibold relative inline-block whitespace-nowrap;
+    letter-spacing: -0.8rem;
+  }
+
+  .row-col {
+    @apply w-[50%] flex items-center justify-center;
+
+    .row-msg {
+      font-weight: 500;
+      font-size: 20px;
+      width: 420px;
+      line-height: 2.6rem;
+    }
+  }
+}
+
+$move-initial: calc(-25%);
+$move-final: calc(-50%);
+
+.marquee {
+  @apply relative overflow-hidden;
+  &.animate .marquee__inner {
+    animation-play-state: running;
+  }
+
+  .marquee__inner {
+    width: fit-content;
+    display: flex;
+    position: relative;
+    transform: translate3d($move-initial, 0, 0);
+    animation: marquee 5s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .row-title {
+    padding: 0 8vw;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d($move-initial, 0, 0);
+  }
+
+  100% {
+    transform: translate3d($move-final, 0, 0);
+  }
+}
