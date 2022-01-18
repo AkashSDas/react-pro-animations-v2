@@ -1,28 +1,56 @@
 import { useEffect, useState } from "react";
 import styles from "@styles/framer-motion/smooth-loading-transition/Banner.module.scss";
+import { motion } from "framer-motion";
+
+const banner = {
+  animate: { transition: { delayChildren: 0.4, staggerChildren: 0.1 } },
+};
+
+const letterAnimation = {
+  initial: { y: 400 },
+  animate: {
+    y: 0,
+    transition: { ease: [0.6, 0.01, -0.05, 0.95], duration: 1 },
+  },
+};
 
 const Banner = () => {
   const [playMarquee, setPlayMarquee] = useState(false);
 
   useEffect(() => {
-    setPlayMarquee(true);
+    setTimeout(() => {
+      setPlayMarquee(true);
+    }, 2000);
   }, []);
 
   return (
-    <div className={styles["banner"]}>
+    <motion.div variants={banner} className={styles["banner"]}>
       <BannerRowTop title="brand" />
       <BannerRowCenter title="experience" playMarquee />
       <BannerRowBottom title="studio" />
-    </div>
+    </motion.div>
   );
 };
 
-const AnimatedLetters = ({ title }) => (
-  <span className={styles["row-title"]}>
-    {[...title].map((letter) => (
-      <span className={styles["row-letter"]}>{letter}</span>
+const AnimatedLetters = ({
+  title,
+  disabled,
+}: {
+  title: string;
+  disabled?: boolean;
+}) => (
+  <motion.span
+    variants={disabled ? null : banner}
+    initial="initial"
+    animate="animate"
+    className={styles["row-title"]}
+  >
+    {[...(title as any)].map((letter) => (
+      <motion.span variants={letterAnimation} className={styles["row-letter"]}>
+        {letter}
+      </motion.span>
     ))}
-  </span>
+  </motion.span>
 );
 
 const BannerRowTop = ({ title }: { title: string }) => {
@@ -31,12 +59,17 @@ const BannerRowTop = ({ title }: { title: string }) => {
       <div className={styles["row-col"]}>
         <AnimatedLetters title={title} />
       </div>
-      <div className={styles["row-col"]}>
+      <motion.div
+        initial={{ opacity: 0, y: 80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ ease: "easeInOut", duration: 1, delay: 0.4 }}
+        className={styles["row-col"]}
+      >
         <span className={styles["row-msg"]}>
           We are specialised in setting up the foundation of your brand and
           setting you up for success.
         </span>
-      </div>
+      </motion.div>
     </div>
   );
 };
@@ -63,10 +96,10 @@ const BannerRowCenter = ({
       }`}
     >
       <div className={styles["marquee__inner"]}>
+        <AnimatedLetters title={title} disabled />
         <AnimatedLetters title={title} />
-        <AnimatedLetters title={title} />
-        <AnimatedLetters title={title} />
-        <AnimatedLetters title={title} />
+        <AnimatedLetters title={title} disabled />
+        <AnimatedLetters title={title} disabled />
       </div>
     </div>
   );
