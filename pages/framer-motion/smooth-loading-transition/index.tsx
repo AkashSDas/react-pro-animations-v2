@@ -15,6 +15,9 @@ const SmoothLoadingTransition = () => {
     loading
       ? document.querySelector("body").classList.add("loading")
       : document.querySelector("body").classList.remove("loading");
+
+    // Hide the document scrollbar
+    document.body.style.overflow = "hidden";
   }, [loading]);
 
   return (
